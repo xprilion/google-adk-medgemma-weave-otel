@@ -13,7 +13,8 @@ load_dotenv()
 
 api_base_url = os.getenv("OLLAMA_API_BASE")
 # api_key = os.getenv("HF_TOKEN")
-model_name_at_endpoint="ollama_chat/medgemma-x:latest"
+# model_name_at_endpoint="ollama_chat/medgemma-x:latest"
+model_name_at_endpoint="ollama_chat/alibayram/medgemma:4b"
 
 
 
