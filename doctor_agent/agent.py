@@ -143,7 +143,7 @@ def get_health_tips(category: str) -> dict:
 
 root_agent = Agent(
     name="doctor_agent",
-    model="gemini-2.0-flash",
+    model="gemini-2.5-flash",
     description=(
         "A medical assistant agent that can search for medical information, "
         "provide health advice, analyze symptoms, and offer medical guidance "

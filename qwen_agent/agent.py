@@ -1,41 +1,16 @@
 import os
-import base64
 import requests
-from typing import Optional
-from zoneinfo import ZoneInfo
 from google.adk.agents import Agent
+from google.adk.models.lite_llm import LiteLlm
+
 from dotenv import load_dotenv
 
-# --- Weave/OTEL tracing setup ---
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk import trace as trace_sdk
-from opentelemetry.sdk.trace.export import SimpleSpanProcessor
-from opentelemetry import trace
-
-# Load environment variables
 load_dotenv()
 
-# Weave/OTEL configuration
-WANDB_BASE_URL = "https://trace.wandb.ai"
-PROJECT_ID = os.environ.get("WANDB_PROJECT_ID")
-WANDB_API_KEY = os.environ.get("WANDB_API_KEY")
+api_base_url = os.getenv("OLLAMA_API_BASE")
+model_name_at_endpoint="ollama_chat/qwen3:1.7b"
 
-OTEL_EXPORTER_OTLP_ENDPOINT = f"{WANDB_BASE_URL}/otel/v1/traces"
-AUTH = base64.b64encode(f"api:{WANDB_API_KEY}".encode()).decode()
 
-OTEL_EXPORTER_OTLP_HEADERS = {
-    "Authorization": f"Basic {AUTH}",
-    "project_id": PROJECT_ID,
-}
-
-exporter = OTLPSpanExporter(
-    endpoint=OTEL_EXPORTER_OTLP_ENDPOINT,
-    headers=OTEL_EXPORTER_OTLP_HEADERS,
-)
-tracer_provider = trace_sdk.TracerProvider()
-tracer_provider.add_span_processor(SimpleSpanProcessor(exporter))
-trace.set_tracer_provider(tracer_provider)
-# --- End Weave/OTEL tracing setup ---
 
 def search_medical_info(query: str) -> dict:
     """Search for medical information using Google Programmable Search API.
@@ -171,8 +146,11 @@ def get_health_tips(category: str) -> dict:
 
 
 root_agent = Agent(
-    name="trace_agent",
-    model="gemini-2.5-flash",
+    name="qwen_agent",
+    model=LiteLlm(
+        model=model_name_at_endpoint,
+        api_base=api_base_url,
+    ),
     description=(
         "A medical assistant agent that can search for medical information, "
         "provide health advice, analyze symptoms, and offer medical guidance "
