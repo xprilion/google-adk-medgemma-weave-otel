@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_base_url = os.getenv("OLLAMA_API_BASE")
-model_name_at_endpoint="ollama/medgemma-x3:latest"
+model_name_at_endpoint="ollama/medgemma-x4:latest"
 # model_name_at_endpoint="ollama/alibayram/medgemma:4b"
 
 

@@ -3,7 +3,7 @@ from google.adk.agents import Agent
 
 root_agent = Agent(
     name="nothing_agent",
-    model="gemini-2.5-flash",
+    model="gemini-2.0-flash",
     description=(
         "Agent to do nothing."
     ),
