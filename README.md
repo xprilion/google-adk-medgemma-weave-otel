@@ -36,6 +36,8 @@ Create a `.env` file in the root directory with the following variables:
 ```env
 GOOGLE_SEARCH_API_KEY=your_google_search_api_key_here
 GOOGLE_SEARCH_ENGINE_ID=your_search_engine_id_here
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+GOOGLE_API_KEY="Gemini_API_Key"
 ```
 
 ### 4. Run the Application
